@@ -18,13 +18,13 @@ import (
 */
 
 type selectColor interface {
-	SelectColor(digito uint64) (color.RGBA, color.RGBA, color.RGBA)
+	SelectColor(mibyte byte) (color.RGBA, color.RGBA, color.RGBA)
 }
 type createimages interface {
-	Createimage(encodeInformation uint64) (string, error)
+	Createimage(encodeInformation []byte) (string, error)
 }
 type setImage interface {
-	SetImage(encodeInformation uint64, color1 color.RGBA, color2 color.RGBA, color3 color.RGBA) *image.RGBA
+	SetImage(encodeInformation []byte, color1 color.RGBA, color2 color.RGBA, color3 color.RGBA) *image.RGBA
 }
 type saveImage interface {
 	SaveImage(path string, img *image.RGBA) error
@@ -46,14 +46,14 @@ func newBuildImage() *BuildImage {
 	}
 }
 
-func (B *BuildImage) BuildAndSaveImage(encodeInformation uint64) error {
+func (B *BuildImage) BuildAndSaveImage(encodeInformation []byte) error {
 	imaProses1 := newBuildImage()
 	path, err := imaProses1.Createimage(encodeInformation)
 	if err != nil {
 		return err
 	}
 
-	color1, color2, color3 := imaProses1.SelectColor((encodeInformation / 1000) % 10)
+	color1, color2, color3 := imaProses1.SelectColor(encodeInformation[10])
 	img := imaProses1.SetImage(encodeInformation, color1, color2, color3)
 
 	err = imaProses1.SaveImage(path, img)

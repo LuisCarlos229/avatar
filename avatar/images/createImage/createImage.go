@@ -1,7 +1,6 @@
 package createImage
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"strconv"
@@ -9,11 +8,19 @@ import (
 
 type Createimage struct{}
 
-func (C *Createimage) Createimage(encodeInformation uint64) (string, error) {
-	fmt.Println()
+func (C *Createimage) Createimage(encodeInformation []byte) (string, error) {
+
 	log.Println("creating image in proces...")
 
-	path := strconv.Itoa(int(encodeInformation / 2))
+	path := ""
+	for i, byte := range encodeInformation {
+		path += strconv.Itoa(int(byte))
+		if i > 8 {
+			break
+		}
+	}
+
+	//path := strconv.Itoa(int(encodeInformation / 2))
 	path += ".png"
 
 	f, err := os.Create(path)

@@ -6,11 +6,11 @@ import (
 )
 
 type cryptoEncoder interface {
-	EncodeInformation(strInformation string) (encodeInformation uint64, err error)
+	EncodeInformation(strInformation string) (encodeInformation []byte, err error)
 }
 
 type imageGenerator interface {
-	BuildAndSaveImage(encodeInformation uint64) error
+	BuildAndSaveImage(encodeInformation []byte) error
 }
 
 //Service se encarga de resibir la Informacion y darla a las funciones que
