@@ -79,17 +79,18 @@ var (
 
 type SelectColor struct{}
 
-func (S *SelectColor) SelectColor(mibyte byte) (color.RGBA, color.RGBA, color.RGBA) {
-	if mibyte <= 76 {
+// SelectColor resibe un digito por el cual ara la seleccion de una paleta de 3 colores para el usuario.
+func (S *SelectColor) SelectColor(digito byte) (color1 color.RGBA, color2 color.RGBA, color3 color.RGBA) {
+	if digito <= 76 {
 		return paleta1.c1, paleta1.c2, paleta1.c3
 
-	} else if 76 < mibyte && mibyte <= 102 {
+	} else if 76 < digito && digito <= 102 {
 		return paleta2.c1, paleta2.c2, paleta2.c3
 
-	} else if 102 < mibyte && mibyte <= 153 {
+	} else if 102 < digito && digito <= 153 {
 		return paleta3.c1, paleta3.c2, paleta3.c3
 
-	} else if 153 < mibyte && mibyte <= 204 {
+	} else if 153 < digito && digito <= 204 {
 		return paleta4.c1, paleta4.c2, paleta4.c3
 	}
 	return paleta5.c1, paleta5.c2, paleta5.c3
