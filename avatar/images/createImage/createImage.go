@@ -8,11 +8,11 @@ import (
 
 type Createimage struct{}
 
-func (C *Createimage) Createimage(encodeInformation []byte) (string, error) {
+// Createimage se encarga de la generacion del archivo png vacio para su posterior seteo, y devuelve el path del archivo
+// y un error en caso de que algo aya salido mal.
+func (C *Createimage) Createimage(encodeInformation []byte) (path string, err error) {
 
-	log.Println("creating image in proces...")
-
-	path := ""
+	path = ""
 	for i, byte := range encodeInformation {
 		path += strconv.Itoa(int(byte))
 		if i > 8 {
@@ -20,16 +20,14 @@ func (C *Createimage) Createimage(encodeInformation []byte) (string, error) {
 		}
 	}
 
-	//path := strconv.Itoa(int(encodeInformation / 2))
 	path += ".png"
 
 	f, err := os.Create(path)
 	defer f.Close()
 	if err != nil {
-		return "", err
+		log.Println("El directorio o archivo no puede ser creado.")
+		panic(err)
 	}
-
-	log.Println("creating image ready...")
 
 	return path, nil
 }
